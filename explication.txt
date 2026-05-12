@@ -1,0 +1,105 @@
+TransactionID → identifiant unique
+AccountID → numéro du compte
+TransactionAmount 💰 → montant de la transaction
+TransactionType → type (Debit / Credit)
+Channel → moyen utilisé (ATM, Mobile, Online)
+DeviceType → type d’appareil (Mobile / Desktop)
+LoginAttempts → nombre de tentatives de connexion
+AccountBalance → solde du compte après transaction
+Fraud →
+0 = normal
+1 = fraude
+------
+Debit → sortie d’argent
+Credit → entrée d’argent
+Balance → après la transaction
+-------------------------------------------------
+J’ai structuré mon projet en 4 parties principales :
+
+prétraitement des données
+modèles de détection
+évaluation
+pipeline principal
+----
+Preprocessing.scala : 
+transformation des données en vecteur
+normalisation → améliorer performance des modèles
+----
+Models.scala :
+3 approches différentes
+comparaison supervisé vs non supervisé
+---
+Pourquoi 3 modèles ?
+K-Means → détecte comportements anormaux
+Isolation Forest → détecte anomalies rares
+Classification → modèle précis avec labels
+---
+KMeans → groupes
+Isolation → anomalies
+Logistic → classification
+----
+pour l'execution:
+val df = spark.read.option("header","true").option("inferSchema","true").option("delimiter",";").csv("C:/Users/Bochra/Desktop/fraud_dataset_clear_complete.csv")
+df.printSchema()
+df.show(5)
+---
+apres la test des programme : 1/2/3/4/5
+df.show(5)
+predictions.select("Fraud","prediction").show(10)
+println(accuracy)
+predictions.show()
+--
+Score du modèle = 0.9759
+Interprétation :
+0.97 = très bon modèle
+proche de 1 = excellent
+------
+test avant la lancement de soutenance : 
+🔹 1. ENCODAGE :
+
+import org.apache.spark.ml.feature.StringIndexer
+
+val indexer1 = new StringIndexer().setInputCol("TransactionType").setOutputCol("TransactionTypeIndex")
+val indexer2 = new StringIndexer().setInputCol("Channel").setOutputCol("ChannelIndex")
+val indexer3 = new StringIndexer().setInputCol("DeviceType").setOutputCol("DeviceTypeIndex")
+
+val df1 = indexer1.fit(df).transform(df)
+val df2 = indexer2.fit(df1).transform(df1)
+val df3 = indexer3.fit(df2).transform(df2)
+🔹 2. FEATURES VECTOR:
+import org.apache.spark.ml.feature.VectorAssembler
+
+val assembler = new VectorAssembler()
+  .setInputCols(Array(
+    "TransactionAmount",
+    "LoginAttempts",
+    "AccountBalance",
+    "TransactionTypeIndex",
+    "ChannelIndex",
+    "DeviceTypeIndex"
+  ))
+  .setOutputCol("features")
+
+val finalData = assembler.transform(df3)
+🔹 3. MODÈLE ML :
+import org.apache.spark.ml.classification.LogisticRegression
+
+val lr = new LogisticRegression()
+  .setLabelCol("Fraud")
+  .setFeaturesCol("features")
+
+val model = lr.fit(finalData)
+🔹 4. PRÉDICTIONS :
+val predictions = model.transform(finalData)
+predictions.select("Fraud","prediction").show(10)
+🔹 5. ÉVALUATION :
+import org.apache.spark.ml.evaluation.BinaryClassificationEvaluator
+
+val evaluator = new BinaryClassificationEvaluator()
+  .setLabelCol("Fraud")
+
+val accuracy = evaluator.evaluate(predictions)
+
+println("Score = " + accuracy)
+
+===>prédictions correctes
