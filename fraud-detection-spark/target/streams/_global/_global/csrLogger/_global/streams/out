@@ -1,0 +1,16 @@
+[info] downloading https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.13.17/scala-compiler-2.13.17-sources.jar
+[info] downloading https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.13.17/scala-reflect-2.13.17-sources.jar
+[info] downloading https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.17/scala-library-2.13.17-sources.jar
+[info] downloading https://repo1.maven.org/maven2/org/scalanlp/breeze-macros_2.13/2.1.0/breeze-macros_2.13-2.1.0-sources.jar
+[info] downloading failed https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.13.17/scala-reflect-2.13.17-sources.jar
+[info] downloading failed https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.13.17/scala-compiler-2.13.17-sources.jar
+[info] downloading failed https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.17/scala-library-2.13.17-sources.jar
+[info] downloading failed https://repo1.maven.org/maven2/org/scalanlp/breeze-macros_2.13/2.1.0/breeze-macros_2.13-2.1.0-sources.jar
+[info] downloading https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.17/scala-library-2.13.17-sources.jar.sha1
+[info] downloading https://repo1.maven.org/maven2/org/scalanlp/breeze-macros_2.13/2.1.0/breeze-macros_2.13-2.1.0-sources.jar.sha1
+[info] downloading https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.13.17/scala-compiler-2.13.17-sources.jar.sha1
+[info] downloading https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.13.17/scala-reflect-2.13.17-sources.jar.sha1
+[info] downloading failed https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.17/scala-library-2.13.17-sources.jar.sha1
+[info] downloading failed https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.13.17/scala-reflect-2.13.17-sources.jar.sha1
+[info] downloading failed https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.13.17/scala-compiler-2.13.17-sources.jar.sha1
+[info] downloading failed https://repo1.maven.org/maven2/org/scalanlp/breeze-macros_2.13/2.1.0/breeze-macros_2.13-2.1.0-sources.jar.sha1

@@ -1,7 +1,6 @@
 import org.apache.spark.sql.SparkSession
 
 object Main {
-
   def main(args: Array[String]): Unit = {
 
     val spark = SparkSession.builder()
@@ -11,7 +10,7 @@ object Main {
 
     spark.sparkContext.setLogLevel("ERROR")
 
-    //  Charger dataset
+    // Charger dataset
     val df = spark.read
       .option("header", "true")
       .option("inferSchema", "true")
@@ -23,15 +22,15 @@ object Main {
     // Prétraitement
     val processedDF = Preprocessing.process(df)
 
-    //  Split (IMPORTANT pour évaluation réelle)
+    // Split
     val Array(trainDF, testDF) = processedDF.randomSplit(Array(0.8, 0.2), seed = 42)
 
-    //  Modèles
-    val kmeansDF = Models.kmeans(trainDF, testDF)
+    // Modèles
+    val kmeansDF  = Models.kmeans(trainDF, testDF)
     val classifDF = Models.classification(trainDF, testDF)
 
-    //  Évaluation
-    println("=== ÉVALUATION CLASSIFICATION ===")
+    // Évaluation
+    println("=== EVALUATION CLASSIFICATION ===")
     Evaluation.evaluate(classifDF)
 
     spark.stop()

@@ -6,28 +6,28 @@ object Evaluation {
   def evaluate(df: DataFrame): Unit = {
 
     println("=== MATRICE DE CONFUSION ===")
-    df.groupBy("label", "prediction").count().show()
+    df.groupBy("Fraud", "prediction").count().show()
 
     val precision = new MulticlassClassificationEvaluator()
-      .setLabelCol("label")
+      .setLabelCol("Fraud")
       .setPredictionCol("prediction")
       .setMetricName("weightedPrecision")
       .evaluate(df)
 
     val recall = new MulticlassClassificationEvaluator()
       .setMetricName("weightedRecall")
-      .setLabelCol("label")
+      .setLabelCol("Fraud")
       .setPredictionCol("prediction")
       .evaluate(df)
 
     val f1 = new MulticlassClassificationEvaluator()
       .setMetricName("f1")
-      .setLabelCol("label")
+      .setLabelCol("Fraud")
       .setPredictionCol("prediction")
       .evaluate(df)
 
     val auc = new BinaryClassificationEvaluator()
-      .setLabelCol("label")
+      .setLabelCol("Fraud")
       .setRawPredictionCol("rawPrediction")
       .evaluate(df)
 

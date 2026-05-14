@@ -28,10 +28,10 @@ object Models {
 
     // Gestion déséquilibre
     val weightedTrain = trainDF.withColumn("weight",
-      when(col("label") === 1, 10.0).otherwise(1.0))
+      when(col("Fraud") === 1, 10.0).otherwise(1.0))
 
     val lr = new LogisticRegression()
-      .setLabelCol("label")
+      .setLabelCol("Fraud")
       .setFeaturesCol("features")
       .setWeightCol("weight")
       .setMaxIter(50)
@@ -41,7 +41,7 @@ object Models {
     val predictions = model.transform(testDF)
 
     println("=== Exemple prédictions ===")
-    predictions.select("label", "prediction", "probability").show(10)
+    predictions.select("Fraud", "prediction", "probability").show(10)
 
     predictions
   }
